@@ -1,0 +1,4 @@
+--patch-module
+com.mealplanner=_
+--add-reads
+com.mealplanner=ALL-UNNAMED

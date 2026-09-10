@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mealplanner.ui.FamilyMemberTabController">
+   <children>
+      <!-- Member Profile Section -->
+      <VBox styleClass="member-profile-section" spacing="10.0">
+         <children>
+            <Label fx:id="memberNameLabel" styleClass="member-name-label" text="Member Name">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            
+            <HBox spacing="20.0">
+               <children>
+                  <!-- Basic Info -->
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label text="Basic Information" styleClass="section-header">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ageLabel" text="Age: -" />
+                        <Label fx:id="genderLabel" text="Gender: -" />
+                        <Label fx:id="heightLabel" text="Height: -" />
+                        <Label fx:id="weightLabel" text="Weight: -" />
+                        <Label fx:id="activityLabel" text="Activity Level: -" />
+                        <Label fx:id="healthGoalLabel" text="Health Goal: -" />
+                     </children>
+                  </VBox>
+                  
+                  <!-- Nutrition Profile -->
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label text="Nutritional Profile" styleClass="section-header">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="bmiLabel" text="BMI: -" />
+                        <Label fx:id="bmrLabel" text="BMR: -" />
+                        <Label fx:id="tdeeLabel" text="TDEE: -" />
+                        <Label fx:id="targetCaloriesLabel" text="Target Calories: -" />
+                        <Label fx:id="targetProteinLabel" text="Target Protein: -" />
+                        <Label fx:id="targetCarbsLabel" text="Target Carbs: -" />
+                        <Label fx:id="targetFatLabel" text="Target Fat: -" />
+                     </children>
+                  </VBox>
+                  
+                  <!-- Dietary Restrictions -->
+                  <VBox spacing="8.0">
+                     <children>
+                        <Label text="Dietary Information" styleClass="section-header">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label text="Allergies:" />
+                        <FlowPane fx:id="allergiesFlowPane" hgap="5.0" vgap="5.0" />
+                        <Label text="Medical Conditions:" />
+                        <FlowPane fx:id="medicalConditionsFlowPane" hgap="5.0" vgap="5.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+      
+      <!-- Separator -->
+      <Separator />
+      
+      <!-- Meal Plan Section -->
+      <VBox VBox.vgrow="ALWAYS" spacing="10.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label text="Meal Plan" styleClass="section-header">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="generatePlanButton" onAction="#handleGeneratePlan" text="Generate Plan for This Member" />
+               </children>
+            </HBox>
+            
+            <!-- Meal Plan Content -->
+            <StackPane VBox.vgrow="ALWAYS">
+               <children>
+                  <!-- Empty State -->
+                  <VBox fx:id="emptyStateVBox" alignment="CENTER" spacing="20.0" visible="true">
+                     <children>
+                        <Label text="No meal plan generated yet" styleClass="empty-state-label">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="Click 'Generate Plan for This Member' to create a personalized meal plan" wrapText="true">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  
+                  <!-- Meal Plan TabPane -->
+                  <TabPane fx:id="mealPlanTabPane" visible="false" managed="false" />
+               </children>
+            </StackPane>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </children>
+</VBox>

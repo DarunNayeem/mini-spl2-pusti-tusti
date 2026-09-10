@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mealplanner.ui.MainViewController">
+   <top>
+      <HBox styleClass="header-bar" spacing="10.0">
+         <children>
+            <Label text="Pusti-Tusti - Family Meal Planner" styleClass="app-title">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="generateShoppingListButton" mnemonicParsing="false" onAction="#handleGenerateShoppingList" text="Generate Shopping List" />
+            <Button fx:id="generatePlanButton" mnemonicParsing="false" onAction="#handleGeneratePlan" text="Generate Individual Plan" />
+            <Button fx:id="generateFamilyPlanButton" mnemonicParsing="false" onAction="#handleGenerateFamilyPlan" text="Generate Family Plan" />
+            <Button fx:id="createEditProfileButton" mnemonicParsing="false" onAction="#handleCreateEditProfile" text="Manage Profiles" />
+         </children>
+      </HBox>
+   </top>
+   
+   <center>
+      <!-- Main TabPane for Family Members -->
+      <TabPane fx:id="familyMembersTabPane" tabClosingPolicy="UNAVAILABLE" side="LEFT">
+         <!-- Welcome Tab (shown when no profiles exist) -->
+         <Tab fx:id="welcomeTab" text="Welcome">
+            <content>
+               <VBox alignment="CENTER" spacing="30.0">
+                  <children>
+                     <Label text="Welcome to Pusti-Tusti Family Meal Planner!" styleClass="welcome-title">
+                        <font>
+                           <Font name="System Bold" size="24.0" />
+                        </font>
+                     </Label>
+                     <Label text="Get started by creating family member profiles" styleClass="welcome-subtitle">
+                        <font>
+                           <Font size="16.0" />
+                        </font>
+                     </Label>
+                     <Button fx:id="getStartedButton" onAction="#handleCreateEditProfile" text="Get Started - Create Profiles" styleClass="primary-button">
+                        <font>
+                           <Font size="14.0" />
+                        </font>
+                     </Button>
+                  </children>
+                  <padding>
+                     <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                  </padding>
+               </VBox>
+            </content>
+         </Tab>
+      </TabPane>
+   </center>
+</BorderPane>

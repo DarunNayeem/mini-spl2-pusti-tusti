@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.mealplanner.dal.RecipeDAOTest" time="0.705" tests="10" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="25"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/media/nym/endeavouros/home/nym/Pictures/Java-Pusti-Tusti/target/test-classes:/home/nym/.m2/repository/org/openjfx/javafx-controls/17.0.2/javafx-controls-17.0.2.jar:/home/nym/.m2/repository/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2.jar:/home/nym/.m2/repository/org/openjfx/javafx-base/17.0.2/javafx-base-17.0.2.jar:/home/nym/.m2/repository/org/openjfx/javafx-fxml/17.0.2/javafx-fxml-17.0.2.jar:/home/nym/.m2/repository/org/xerial/sqlite-jdbc/3.42.0.0/sqlite-jdbc-3.42.0.0.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter/5.9.2/junit-jupiter-5.9.2.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/home/nym/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/nym/.m2/repository/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/home/nym/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/home/nym/.m2/repository/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:"/>
+    <property name="java.vm.vendor" value="Oracle Corporation"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://java.oracle.com/"/>
+    <property name="user.timezone" value="Asia/Dhaka"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="25"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/jdk-25.0.1-oracle-x64/lib"/>
+    <property name="sun.java.command" value="org.apache.maven.surefire.booter.ForkedBooter /media/nym/endeavouros/home/nym/Pictures/Java-Pusti-Tusti/target/surefire 2026-09-10T23-41-56_489-jvmRun1 surefire-20260910234157058_1tmp surefire_0-20260910234157058_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/media/nym/endeavouros/home/nym/Pictures/Java-Pusti-Tusti/target/test-classes:/home/nym/.m2/repository/org/openjfx/javafx-controls/17.0.2/javafx-controls-17.0.2.jar:/home/nym/.m2/repository/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2.jar:/home/nym/.m2/repository/org/openjfx/javafx-base/17.0.2/javafx-base-17.0.2.jar:/home/nym/.m2/repository/org/openjfx/javafx-fxml/17.0.2/javafx-fxml-17.0.2.jar:/home/nym/.m2/repository/org/xerial/sqlite-jdbc/3.42.0.0/sqlite-jdbc-3.42.0.0.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter/5.9.2/junit-jupiter-5.9.2.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/home/nym/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/nym/.m2/repository/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/home/nym/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/home/nym/.m2/repository/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/nym"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="jdk.module.path" value="/media/nym/endeavouros/home/nym/Pictures/Java-Pusti-Tusti/target/classes:/home/nym/.m2/repository/org/openjfx/javafx-controls/17.0.2/javafx-controls-17.0.2-linux.jar:/home/nym/.m2/repository/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2-linux.jar:/home/nym/.m2/repository/org/openjfx/javafx-base/17.0.2/javafx-base-17.0.2-linux.jar:/home/nym/.m2/repository/org/openjfx/javafx-fxml/17.0.2/javafx-fxml-17.0.2-linux.jar:/home/nym/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.2/jackson-core-2.15.2.jar:/home/nym/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.2/jackson-databind-2.15.2.jar:/home/nym/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.2/jackson-annotations-2.15.2.jar"/>
+    <property name="java.version.date" value="2025-10-21"/>
+    <property name="java.home" value="/usr/lib/jvm/jdk-25.0.1-oracle-x64"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/media/nym/endeavouros/home/nym/Pictures/Java-Pusti-Tusti"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="surefire.real.class.path" value="/home/nym/.m2/repository/org/apache/maven/surefire/surefire-booter/3.0.0-M9/surefire-booter-3.0.0-M9.jar:/home/nym/.m2/repository/org/apache/maven/surefire/surefire-api/3.0.0-M9/surefire-api-3.0.0-M9.jar:/home/nym/.m2/repository/org/apache/maven/surefire/surefire-logger-api/3.0.0-M9/surefire-logger-api-3.0.0-M9.jar:/home/nym/.m2/repository/org/apache/maven/surefire/surefire-shared-utils/3.0.0-M9/surefire-shared-utils-3.0.0-M9.jar:/home/nym/.m2/repository/org/apache/maven/surefire/surefire-extensions-spi/3.0.0-M9/surefire-extensions-spi-3.0.0-M9.jar:/media/nym/endeavouros/home/nym/Pictures/Java-Pusti-Tusti/target/test-classes:/home/nym/.m2/repository/org/openjfx/javafx-controls/17.0.2/javafx-controls-17.0.2.jar:/home/nym/.m2/repository/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2.jar:/home/nym/.m2/repository/org/openjfx/javafx-base/17.0.2/javafx-base-17.0.2.jar:/home/nym/.m2/repository/org/openjfx/javafx-fxml/17.0.2/javafx-fxml-17.0.2.jar:/home/nym/.m2/repository/org/xerial/sqlite-jdbc/3.42.0.0/sqlite-jdbc-3.42.0.0.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter/5.9.2/junit-jupiter-5.9.2.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.9.2/junit-jupiter-api-5.9.2.jar:/home/nym/.m2/repository/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar:/home/nym/.m2/repository/org/junit/platform/junit-platform-commons/1.9.2/junit-platform-commons-1.9.2.jar:/home/nym/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.9.2/junit-jupiter-params-5.9.2.jar:/home/nym/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.9.2/junit-jupiter-engine-5.9.2.jar:/home/nym/.m2/repository/org/junit/platform/junit-platform-engine/1.9.2/junit-platform-engine-1.9.2.jar:/home/nym/.m2/repository/org/apache/maven/surefire/surefire-junit-platform/3.0.0-M9/surefire-junit-platform-3.0.0-M9.jar:/home/nym/.m2/repository/org/apache/maven/surefire/common-java5/3.0.0-M9/common-java5-3.0.0-M9.jar:/home/nym/.m2/repository/org/junit/platform/junit-platform-launcher/1.9.2/junit-platform-launcher-1.9.2.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="25.0.1+8-LTS-27"/>
+    <property name="user.name" value="nym"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.6.142-amd64-desktop-hwe"/>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="localRepository" value="/home/nym/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugreport.java.com/bugreport/"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="25.0.1"/>
+    <property name="user.dir" value="/media/nym/endeavouros/home/nym/Pictures/Java-Pusti-Tusti"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.version" value="25.0.1+8-LTS-27"/>
+    <property name="stdin.encoding" value="UTF-8"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="69.0"/>
+  </properties>
+  <testcase name="testDatabaseConnection" classname="com.mealplanner.dal.RecipeDAOTest" time="0.419">
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testFindRecipesByMealType" classname="com.mealplanner.dal.RecipeDAOTest" time="0.109">
+    <system-out><![CDATA[Found 44 breakfast recipes
+]]></system-out>
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testFindRecipesByFilter" classname="com.mealplanner.dal.RecipeDAOTest" time="0.032">
+    <system-out><![CDATA[Found 39 lunch recipes
+Found 30 dinner recipes without common allergens
+]]></system-out>
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testFindRecipesByDietaryRequirements" classname="com.mealplanner.dal.RecipeDAOTest" time="0.037">
+    <system-out><![CDATA[Found 46 vegetarian recipes
+Found 45 diabetic-friendly recipes
+]]></system-out>
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testRecipeDataIntegrity" classname="com.mealplanner.dal.RecipeDAOTest" time="0.02">
+    <system-out><![CDATA[Recipe: Classic Bengali Meal: Rice with Steamed Hilsa
+Tags: [staple, fish_curry, classic, daily_meal, traditional, steamed, hilsa_specialty]
+Ingredients count: 13
+Instructions count: 16
+Nutrition - Calories: 2004.0
+Nutrition - Protein: 105.48
+Total nutrients tracked: 27
+]]></system-out>
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testGetAllTags" classname="com.mealplanner.dal.RecipeDAOTest" time="0.01">
+    <system-out><![CDATA[Total unique tags: 128
+Sample tags: [quick_easy, staple, smoky, beef, catfish, trendy, dessert_for_breakfast, cake, iftar_item, healthy_fat]
+]]></system-out>
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testGetRecipeCount" classname="com.mealplanner.dal.RecipeDAOTest" time="0.01">
+    <system-out><![CDATA[Total recipes in database: 173
+]]></system-out>
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testFindRecipesByNutrition" classname="com.mealplanner.dal.RecipeDAOTest" time="0.009">
+    <system-out><![CDATA[Found 5 protein-rich recipes
+]]></system-out>
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testGetSubcategoriesByMealType" classname="com.mealplanner.dal.RecipeDAOTest" time="0.009">
+    <system-out><![CDATA[Breakfast subcategories: [ruti_vegetables, rice_vegetables, Fruit_milk_yogurt, Tea_coffee_streetFood, miscellaneous]
+Dinner subcategories: [rice_fish, rice_meat_vegetables, rice_fish_vegetables, rice_vegetables_bhorta, rice_lentil_bhorta, international_dishes]
+]]></system-out>
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+  <testcase name="testFindRecipeById" classname="com.mealplanner.dal.RecipeDAOTest" time="0.015">
+    <system-out><![CDATA[Successfully found recipe by ID: Classic Breakfast: Ruti with Mixed Vegetable Bhaji
+]]></system-out>
+    <system-err><![CDATA[Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+Sep 10, 2026 11:41:58 PM com.mealplanner.dal.DatabaseManager getConnection
+INFO: Database connection established successfully
+]]></system-err>
+  </testcase>
+</testsuite>

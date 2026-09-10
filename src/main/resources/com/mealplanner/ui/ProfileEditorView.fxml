@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mealplanner.ui.ProfileEditorController">
+   <top>
+      <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="header-bar">
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <children>
+            <Label text="Profile Editor" styleClass="app-title">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   
+   <center>
+      <ScrollPane fitToWidth="true" styleClass="profile-editor-scroll">
+         <GridPane hgap="15.0" vgap="15.0" styleClass="profile-editor-grid">
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            
+            <columnConstraints>
+               <ColumnConstraints hgrow="NEVER" minWidth="150.0" />
+               <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+            </columnConstraints>
+            
+            <!-- Demographics Section -->
+            <Label text="Demographics" styleClass="section-header" GridPane.columnSpan="2" GridPane.rowIndex="0">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            
+            <Separator GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            
+            <Label text="Name:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            
+            <Label text="Age:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+            <TextField fx:id="ageField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            
+            <Label text="Height (cm):" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+            <TextField fx:id="heightField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            
+            <Label text="Weight (kg):" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+            <TextField fx:id="weightField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            
+            <Label text="Gender:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+            <ComboBox fx:id="genderComboBox" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            
+            <!-- Health Goal Section -->
+            <Label text="Health Goal" styleClass="section-header" GridPane.columnSpan="2" GridPane.rowIndex="7">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            
+            <Separator GridPane.columnSpan="2" GridPane.rowIndex="8" />
+            
+            <Label text="Primary Health Goal:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+            <ComboBox fx:id="healthGoalComboBox" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            
+            <Label text="Activity Level:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+            <VBox GridPane.columnIndex="1" GridPane.rowIndex="10">
+               <Slider fx:id="activitySlider" min="1" max="5" value="3" showTickMarks="true" showTickLabels="true" 
+                       majorTickUnit="1" minorTickCount="0" />
+               <Label fx:id="activityLevelLabel" text="Activity Level: 3" />
+            </VBox>
+            
+            <!-- Allergies Section -->
+            <Label text="Allergies" styleClass="section-header" GridPane.columnSpan="2" GridPane.rowIndex="11">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            
+            <Separator GridPane.columnSpan="2" GridPane.rowIndex="12" />
+            
+            <Label text="Select Allergies:" GridPane.columnIndex="0" GridPane.rowIndex="13" />
+            <VBox fx:id="allergiesBox" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="13">
+               <CheckBox fx:id="nutsAllergy" text="Nuts" />
+               <CheckBox fx:id="dairyAllergy" text="Dairy" />
+               <CheckBox fx:id="shellfishAllergy" text="Shellfish" />
+               <CheckBox fx:id="fishAllergy" text="Fish" />
+               <CheckBox fx:id="eggsAllergy" text="Eggs" />
+               <CheckBox fx:id="wheatAllergy" text="Wheat" />
+               <CheckBox fx:id="soybeanAllergy" text="Soybean" />
+               <CheckBox fx:id="spicyAllergy" text="Spicy Food" />
+            </VBox>
+            
+            <!-- Medical Conditions Section -->
+            <Label text="Medical Conditions" styleClass="section-header" GridPane.columnSpan="2" GridPane.rowIndex="14">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            
+            <Separator GridPane.columnSpan="2" GridPane.rowIndex="15" />
+            
+            <Label text="Select Conditions:" GridPane.columnIndex="0" GridPane.rowIndex="16" />
+            <VBox fx:id="medicalConditionsBox" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="16">
+               <CheckBox fx:id="diabetesCondition" text="Diabetes" />
+               <CheckBox fx:id="hypertensionCondition" text="Hypertension" />
+               <CheckBox fx:id="pregnancyCondition" text="Pregnancy" />
+               <CheckBox fx:id="elderlyCondition" text="Elderly" />
+               <CheckBox fx:id="childCondition" text="Child" />
+               <CheckBox fx:id="highCholesterolCondition" text="High Cholesterol" />
+               <CheckBox fx:id="anemiaCondition" text="Anemia" />
+               <CheckBox fx:id="noneCondition" text="None" selected="true" />
+            </VBox>
+            
+            <!-- Meal Preferences Section -->
+            <Label text="Meal Preferences" styleClass="section-header" GridPane.columnSpan="2" GridPane.rowIndex="17">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            
+            <Separator GridPane.columnSpan="2" GridPane.rowIndex="18" />
+            
+            <!-- Breakfast Preferences -->
+            <Label text="Breakfast Preferences" styleClass="subsection-header" GridPane.columnSpan="2" GridPane.rowIndex="19">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            
+            <Label text="Breakfast:" GridPane.columnIndex="0" GridPane.rowIndex="20" />
+            <VBox fx:id="breakfastPreferencesBox" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="20">
+               <CheckBox fx:id="rutiVegetablesBreakfast" text="Ruti-based with Vegetables" />
+               <CheckBox fx:id="riceVegetablesBreakfast" text="Rice-based with Vegetables" />
+               <CheckBox fx:id="fruitMilkYogurtBreakfast" text="Fruit, Milk &amp; Yogurt" />
+               <CheckBox fx:id="teaCoffeeStreetFoodBreakfast" text="Tea/Coffee &amp; Street Food" />
+               <CheckBox fx:id="miscellaneousBreakfast" text="Miscellaneous" />
+            </VBox>
+            
+            <!-- Lunch Preferences -->
+            <Label text="Lunch Preferences" styleClass="subsection-header" GridPane.columnSpan="2" GridPane.rowIndex="21">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            
+            <Label text="Lunch:" GridPane.columnIndex="0" GridPane.rowIndex="22" />
+            <VBox fx:id="lunchPreferencesBox" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="22">
+               <CheckBox fx:id="riceFishLunch" text="Rice with Fish" />
+               <CheckBox fx:id="riceFishVegetablesLunch" text="Rice with Fish and Vegetables" />
+               <CheckBox fx:id="riceMeatVegetablesLunch" text="Rice with Meat and Vegetables" />
+               <CheckBox fx:id="riceVegetablesBhortaLunch" text="Rice with Vegetables and Bhorta" />
+               <CheckBox fx:id="riceLentilBhortaLunch" text="Rice with Lentil and Bhorta" />
+               <CheckBox fx:id="internationalDishesLunch" text="International Dishes" />
+            </VBox>
+            
+            <!-- Dinner Preferences -->
+            <Label text="Dinner Preferences" styleClass="subsection-header" GridPane.columnSpan="2" GridPane.rowIndex="23">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            
+            <Label text="Dinner:" GridPane.columnIndex="0" GridPane.rowIndex="24" />
+            <VBox fx:id="dinnerPreferencesBox" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="24">
+               <CheckBox fx:id="riceFishDinner" text="Rice with Fish" />
+               <CheckBox fx:id="riceFishVegetablesDinner" text="Rice with Fish and Vegetables" />
+               <CheckBox fx:id="riceMeatVegetablesDinner" text="Rice with Meat and Vegetables" />
+               <CheckBox fx:id="riceVegetablesBhortaDinner" text="Rice with Vegetables and Bhorta" />
+               <CheckBox fx:id="riceLentilBhortaDinner" text="Rice with Lentil and Bhorta" />
+               <CheckBox fx:id="internationalDishesDinner" text="International Dishes" />
+            </VBox>
+            
+            <!-- Snacks Preferences -->
+            <Label text="Snacks Preferences" styleClass="subsection-header" GridPane.columnSpan="2" GridPane.rowIndex="25">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            
+            <Label text="Snacks:" GridPane.columnIndex="0" GridPane.rowIndex="26" />
+            <VBox fx:id="snacksPreferencesBox" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="26">
+               <CheckBox fx:id="savouryFriedSnacks" text="Savoury Fried" />
+               <CheckBox fx:id="steamedBoiledSnacks" text="Steamed/Boiled" />
+               <CheckBox fx:id="juiceSmoothieSnacks" text="Juice/Smoothie" />
+               <CheckBox fx:id="sweetSnacksPitha" text="Sweet Snacks/Pitha" />
+               <CheckBox fx:id="soupSnacks" text="Soup" />
+               <CheckBox fx:id="nutsSeedsSnacks" text="Nuts/Seeds" />
+               <CheckBox fx:id="bakerySnacks" text="Bakery" />
+               <CheckBox fx:id="miscellaneousSnacks" text="Miscellaneous" />
+            </VBox>
+            
+         </GridPane>
+      </ScrollPane>
+   </center>
+   
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="10.0" styleClass="button-bar">
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+         <children>
+            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" />
+            <Button fx:id="saveButton" mnemonicParsing="false" onAction="#handleSaveButtonAction" text="Save" styleClass="save-button" />
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>

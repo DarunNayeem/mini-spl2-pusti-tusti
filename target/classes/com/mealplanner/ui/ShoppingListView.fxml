@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mealplanner.ui.ShoppingListController">
+   <top>
+      <VBox spacing="10.0">
+         <children>
+            <Label styleClass="header-label" text="Shopping List Generator" />
+            <Label text="Generate shopping list for individual family members or the entire family" wrapText="true" />
+            <Separator />
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </top>
+   <center>
+      <VBox spacing="20.0">
+         <children>
+            <!-- Selection Section -->
+            <VBox spacing="10.0">
+               <children>
+                  <Label styleClass="section-header" text="Select Shopping List Type" />
+                  <VBox spacing="10.0">
+                     <children>
+                        <RadioButton fx:id="familyRadio" selected="true" text="Generate for Entire Family">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="listTypeGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="individualRadio" text="Generate for Individual Member" toggleGroup="$listTypeGroup" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            
+            <!-- Individual Selection -->
+            <VBox fx:id="individualSelectionBox" spacing="10.0" disable="true">
+               <children>
+                  <Label text="Select Family Member:" />
+                  <ComboBox fx:id="memberComboBox" prefWidth="200.0" promptText="Choose family member..." />
+               </children>
+            </VBox>
+            
+            <!-- Generate Button -->
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Button fx:id="generateButton" onAction="#handleGenerate" styleClass="primary-button" text="Generate Shopping List" />
+               </children>
+            </HBox>
+            
+            <!-- Shopping List Display -->
+            <VBox fx:id="shoppingListSection" spacing="10.0" visible="false" managed="false">
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <Label fx:id="shoppingListTitle" styleClass="section-header" text="Shopping List" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="exportButton" onAction="#handleExport" text="Export to File" />
+                     </children>
+                  </HBox>
+                  <TableView fx:id="shoppingListTable" prefHeight="300.0">
+                     <columns>
+                        <TableColumn fx:id="ingredientColumn" prefWidth="250.0" text="Ingredient" />
+                        <TableColumn fx:id="quantityColumn" prefWidth="100.0" text="Quantity (g)" />
+                        <TableColumn fx:id="categoryColumn" prefWidth="150.0" text="Category" />
+                     </columns>
+                     <placeholder>
+                        <Label text="No shopping list generated yet" />
+                     </placeholder>
+                  </TableView>
+                  <Label fx:id="totalItemsLabel" text="Total items: 0" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_RIGHT" spacing="15.0">
+         <children>
+            <Button fx:id="closeButton" onAction="#handleClose" text="Close" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="15.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>
