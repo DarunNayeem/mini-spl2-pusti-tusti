@@ -1,222 +1,109 @@
 # Deployment Guide
 
 ## Overview
-This guide provides comprehensive instructions for building, testing, and deploying the Pusti-Tusti meal planning application across different environments and platforms.
+This guide reflects the project as it exists today: a working JavaFX desktop app with SQLite persistence, local data access, and a currently stable but still refactorable planning service.
+
+## Current Deployment Status
+
+The project is currently suitable for local development and personal use on a developer machine. It is not presented here as a multi-user production deployment platform.
 
 ## Prerequisites
 
-### System Requirements
-- **Operating System**: Windows 10+, macOS 10.14+, or Linux (Ubuntu 18+)
-- **Java Development Kit**: OpenJDK 17 or Oracle JDK 17+ (LTS recommended)
-- **Build Tool**: Apache Maven 3.6.0 or higher
-- **Memory**: Minimum 4GB RAM, 8GB recommended for development
-- **Storage**: At least 2GB free disk space
-- **Display**: 1024x768 minimum resolution, 1920x1080 recommended
+- Java 17+
+- Maven 3.6+
+- A desktop environment capable of launching JavaFX
+- Git for version control
 
-### Development Environment
-- **IDE**: IntelliJ IDEA, Eclipse, or VS Code with Java extensions
-- **JavaFX SDK**: Included in OpenJDK 17+ or install separately
-- **Git**: For version control and source code management
+## Verified Commands
 
-### Verification Commands
 ```bash
-# Verify Java installation
 java -version
-javac -version
-
-# Verify Maven installation
 mvn -version
-
-# Verify JavaFX availability
-java --list-modules | grep javafx
-```
-
----
-
-## Project Structure and Dependencies
-
-### Maven Project Structure
-```
-pusti-tusti/
-├── pom.xml                          # Maven configuration
-├── src/
-│   ├── main/
-│   │   ├── java/                    # Source code
-│   │   └── resources/               # Resources (database, FXML, CSS)
-│   └── test/
-│       └── java/                    # Test code
-├── target/                          # Build output
-├── docs/                            # Documentation
-└── data/                             # Runtime storage (if relocated)
-```
-
-### Key Dependencies (pom.xml)
-```xml
-<properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <javafx.version>17.0.2</javafx.version>
-    <jackson.version>2.15.2</jackson.version>
-    <sqlite.version>3.42.0.0</sqlite.version>
-    <junit.version>5.9.3</junit.version>
-</properties>
-
-<dependencies>
-    <!-- JavaFX Dependencies -->
-    <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-controls</artifactId>
-        <version>${javafx.version}</version>
-    </dependency>
-    
-    <dependency>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-fxml</artifactId>
-        <version>${javafx.version}</version>
-    </dependency>
-    
-    <!-- Database Dependencies -->
-    <dependency>
-        <groupId>org.xerial</groupId>
-        <artifactId>sqlite-jdbc</artifactId>
-        <version>${sqlite.version}</version>
-    </dependency>
-    
-    <!-- JSON Processing -->
-    <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-core</artifactId>
-        <version>${jackson.version}</version>
-    </dependency>
-    
-    <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>${jackson.version}</version>
-    </dependency>
-    
-    <!-- Testing Dependencies -->
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-    </dependency>
-</dependencies>
-```
-
----
-
-## Build Process
-
-### Maven Build Lifecycle
-
-#### 1. Clean Build
-```bash
-# Remove previous build artifacts
-mvn clean
-
-# Clean and validate project structure
-mvn clean validate
-```
-
-#### 2. Compilation
-```bash
-# Compile main source code
-mvn compile
-
-# Compile test source code
-mvn test-compile
-```
-
-#### 3. Testing
-```bash
-# Run unit tests
 mvn test
-
-# Run tests with detailed output
-mvn test -Dtest.verbose=true
-
-# Run specific test class
-mvn test -Dtest=UserProfileTest
-
-# Skip tests (not recommended for production)
-mvn compile -DskipTests
+mvn javafx:run
 ```
 
-#### 4. Packaging
+The project was verified with:
+
 ```bash
-# Create JAR file
-mvn package
-
-# Create JAR without tests
-mvn package -DskipTests
-
-# Create executable JAR with JavaFX runtime
-mvn javafx:jlink
+cd /media/nym/endeavouros/home/nym/Pictures/Java-Pusti-Tusti && mvn -q test; echo EXIT:$?
 ```
 
-### Build Profiles
+Current result:
 
-#### Development Profile
-```xml
-<profile>
-    <id>development</id>
-    <activation>
-        <activeByDefault>true</activeByDefault>
-    </activation>
-    <properties>
-        <database.url>jdbc:sqlite:src/main/resources/recipes.db</database.url>
-        <logging.level>DEBUG</logging.level>
-    </properties>
-</profile>
+```text
+EXIT:0
 ```
 
-#### Production Profile
-```xml
-<profile>
-    <id>production</id>
-    <properties>
-        <database.url>jdbc:sqlite:./data/recipes.db</database.url>
-        <logging.level>WARN</logging.level>
-    </properties>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <optimize>true</optimize>
-                    <debug>false</debug>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-</profile>
+## Local Project Layout
+
+```text
+project-root/
+├── pom.xml
+├── README.md
+├── docs/
+├── src/
+│   ├── main/java
+│   ├── main/resources
+│   └── test/java
+├── target/
+└── shopping_list.txt
 ```
 
-#### Build with Profile
+## Build Workflow
+
+### Compile
 ```bash
-# Build with production profile
-mvn clean package -Pproduction
-
-# Build with development profile (default)
-mvn clean package -Pdevelopment
+mvn compile
 ```
+
+### Run tests
+```bash
+mvn test
+```
+
+### Run the app
+```bash
+mvn javafx:run
+```
+
+## Environment Notes
+
+### JavaFX requirement
+The app uses JavaFX and is expected to run in a standard desktop Java environment with the necessary JavaFX dependencies resolved through Maven.
+
+### SQLite behavior
+The app uses SQLite in the project workspace and initializes database structures on startup. Recent cleanup improved the database path and startup handling.
+
+## Operational Guidance
+
+### Local use
+This app is best treated as a local desktop workflow tool:
+- create profiles
+- generate meal plans
+- view weekly nutrition suggestions
+- collect shopping list outputs
+
+### Maintenance
+Future maintenance should focus on:
+- splitting the large planner service into narrower components
+- formalizing logging across all layers
+- keeping business logic separate from UI concerns
+
+## Risks and Constraints
+
+- App behavior is centered on desktop local execution, not cloud or multi-user deployment
+- The planner service remains the main complex component to maintain
+- The project is stable enough for development work, but not yet a full-scale distributed app architecture
+
+## Recommended Next Step
+
+A good next evolution would be breaking `MealPlannerService` into smaller strategy components while keeping the current working UI and SQLite behavior intact.
 
 ---
 
-## Running the Application
-
-### Development Environment
-
-#### Using Maven JavaFX Plugin
-```bash
-# Run application directly with Maven
-mvn javafx:run
-
-# Run with specific JVM arguments
-mvn javafx:run -Djavafx.args="--add-modules javafx.controls,javafx.fxml"
+**Document Status**: Updated for the current project state
+**Last Updated**: September 2026
 
 # Run with increased memory
 mvn javafx:run -Djavafx.options="-Xmx2g -Xms512m"

@@ -1,197 +1,88 @@
 # Documentation Index
 
-Welcome to the comprehensive documentation for **Pusti-Tusti**, a personalized meal planning application built with Java and JavaFX.
+This documentation set reflects the current state of the project as of September 2026.
+
+## Project Snapshot
+
+Pusti-Tusti is a JavaFX-based desktop meal-planning application for generating personalized plans for individuals and families. The project is currently in a stable cleanup and maintenance phase with verified test health and improved startup/database safety.
 
 ## Documentation Overview
 
-This documentation suite provides complete coverage of the application's architecture, implementation, and deployment procedures. Each document is designed to serve specific audiences and use cases.
+The documentation is organized to help developers, maintainers, and users understand the application from setup through architecture and operations.
 
 ---
 
 ## Core Documentation
 
-### 📋 [README](README.md)
-**Main application overview and quick start guide**
-- Application features and capabilities
-- Technology stack and requirements
-- Building and running instructions
-- Project status and roadmap
-- **Target Audience**: New users, project managers, stakeholders
+### [README](README.md)
+Main project summary, current status, setup steps, and verified health.
 
-### 🏗️ [Architecture Guide](ARCHITECTURE.md)
-**Detailed system architecture and design patterns**
-- Layered architecture overview
-- Design patterns implementation
-- Data flow and component interactions
-- Performance optimizations
-- **Target Audience**: Software architects, senior developers, system designers
+### [Architecture Guide](ARCHITECTURE.md)
+System layers, responsibilities, flows, and current design trade-offs.
 
-### 🔧 [API Documentation](API.md)
-**Complete service layer API reference**
-- Service method signatures and parameters
-- Usage examples and code samples
-- Error handling patterns
-- Integration guidelines
-- **Target Audience**: Developers, integrators, API consumers
+### [API Documentation](API.md)
+Service and repository interfaces, usage patterns, and integration notes.
+
+### [Database Guide](DATABASE.md)
+SQLite schema, recipe data model, and persistence patterns.
+
+### [UI Guide](UI.md)
+JavaFX screens, controllers, and styling approach.
+
+### [Models Documentation](MODELS.md)
+Domain models, enums, profile model, and nutrition-related objects.
+
+### [Deployment Guide](DEPLOYMENT.md)
+Build, run, and environment notes for local development.
 
 ---
 
-## Technical Documentation
+## Current Project Reality
 
-### 💾 [Database Guide](DATABASE.md)
-**SQLite database schema and data access patterns**
-- Table structures and relationships
-- JSON data schemas
-- Query optimization techniques
-- Migration and backup procedures
-- **Target Audience**: Database developers, data analysts, system administrators
+### Verified State
+- Project builds and tests successfully with Maven.
+- The test command currently exits successfully.
+- Some cleanup work has already been applied to reduce code smell in startup and DB management.
 
-### 🎨 [User Interface Guide](UI.md)
-**JavaFX UI components and styling**
-- Component architecture and controllers
-- FXML layouts and CSS styling
-- User interaction patterns
-- Responsive design principles
-- **Target Audience**: UI/UX developers, frontend developers, designers
-
-### 📊 [Data Models Documentation](MODELS.md)
-**Domain objects and data structures**
-- Entity relationships and hierarchies
-- Validation rules and business logic
-- Serialization patterns
-- Model lifecycle management
-- **Target Audience**: Developers, business analysts, data modelers
-
----
-
-## Operations Documentation
-
-### 🚀 [Deployment Guide](DEPLOYMENT.md)
-**Build, test, and deployment procedures**
-- Environment setup and prerequisites
-- Build processes and configurations
-- Testing strategies and quality assurance
-- Production deployment procedures
-- **Target Audience**: DevOps engineers, system administrators, deployment managers
+### Remaining Architectural Debt
+- The planner service remains a large class and is a logical follow-up refactor target.
+- The project is functioning and maintainable for local use, but it is not yet a fully decomposition-oriented enterprise application.
 
 ---
 
 ## Quick Navigation
 
-### By Role
+### For New Contributors
+1. Start with [README](README.md)
+2. Read [ARCHITECTURE.md](ARCHITECTURE.md)
+3. Review [API.md](API.md) and [MODELS.md](MODELS.md)
+4. Use [DEPLOYMENT.md](DEPLOYMENT.md) for local setup
 
-#### 👨‍💻 For Developers
-1. Start with [README](README.md) for project overview
-2. Review [Architecture Guide](ARCHITECTURE.md) for system understanding
-3. Reference [API Documentation](API.md) for service integration
-4. Study [Models Documentation](MODELS.md) for data structures
-5. Consult [Database Guide](DATABASE.md) for data access patterns
+### For Database or Data Work
+1. [DATABASE.md](DATABASE.md)
+2. [MODELS.md](MODELS.md)
+3. [API.md](API.md)
 
-#### 🎨 For UI/UX Developers
-1. Begin with [README](README.md) for context
-2. Focus on [UI Guide](UI.md) for interface components
-3. Review [Architecture Guide](ARCHITECTURE.md) for MVC patterns
-4. Reference [Models Documentation](MODELS.md) for data binding
-
-#### ⚙️ For System Administrators
-1. Read [README](README.md) for system requirements
-2. Follow [Deployment Guide](DEPLOYMENT.md) for installation
-3. Consult [Database Guide](DATABASE.md) for data management
-4. Review [Architecture Guide](ARCHITECTURE.md) for system components
-
-#### 📋 For Project Managers
-1. Start with [README](README.md) for project overview
-2. Review [Architecture Guide](ARCHITECTURE.md) for technical scope
-3. Consult [Deployment Guide](DEPLOYMENT.md) for release planning
-
-### By Task
-
-#### 🏃‍♂️ Quick Start
-- [README](README.md) → Building and Running sections
-- [Deployment Guide](DEPLOYMENT.md) → Prerequisites and Setup
-
-#### 🔍 Understanding the System
-- [Architecture Guide](ARCHITECTURE.md) → System Overview
-- [Models Documentation](MODELS.md) → Domain Model
-- [Database Guide](DATABASE.md) → Data Structure
-
-#### 🛠️ Development Work
-- [API Documentation](API.md) → Service Methods
-- [UI Guide](UI.md) → Component Implementation
-- [Models Documentation](MODELS.md) → Data Validation
-
-#### 🚀 Deployment and Operations
-- [Deployment Guide](DEPLOYMENT.md) → Full deployment workflow
-- [Database Guide](DATABASE.md) → Backup and Migration
-- [Architecture Guide](ARCHITECTURE.md) → Performance Considerations
+### For UI Work
+1. [UI.md](UI.md)
+2. [ARCHITECTURE.md](ARCHITECTURE.md)
+3. [README.md](README.md)
 
 ---
 
-## Documentation Standards
+## Documentation Status
 
-### Format and Structure
-- **Markdown Format**: All documentation uses GitHub-flavored Markdown
-- **Consistent Headers**: Hierarchical structure with clear navigation
-- **Code Examples**: Syntax-highlighted code blocks with explanations
-- **Visual Aids**: Diagrams and tables where appropriate
-
-### Maintenance
-- **Version Control**: All documentation versioned with source code
-- **Regular Updates**: Documentation updated with code changes
-- **Review Process**: Documentation reviewed as part of code review
-- **Feedback Integration**: Community feedback incorporated regularly
-
-### Conventions
-- **File Naming**: UPPERCASE.md for main documents
-- **Cross-References**: Internal links between related sections
-- **External Links**: Links to official documentation and resources
-- **Code Samples**: Working examples that can be copy-pasted
+| Document | Status |
+|----------|--------|
+| [README](README.md) | Updated |
+| [Architecture Guide](ARCHITECTURE.md) | Updated |
+| [API Documentation](API.md) | Present |
+| [Database Guide](DATABASE.md) | Present |
+| [UI Guide](UI.md) | Present |
+| [Models Documentation](MODELS.md) | Present |
+| [Deployment Guide](DEPLOYMENT.md) | Updated |
 
 ---
 
-## Getting Help
-
-### Documentation Issues
-- **Typos or Errors**: Report via GitHub issues
-- **Missing Information**: Request additions through issues
-- **Clarifications**: Ask questions in discussions
-
-### Technical Support
-- **Bug Reports**: Use GitHub issue templates
-- **Feature Requests**: Submit enhancement proposals
-- **General Questions**: Use GitHub discussions
-
-### Contributing
-- **Documentation Updates**: Submit pull requests
-- **New Sections**: Propose additions via issues
-- **Translation**: Help translate documentation
-
----
-
-## Version Information
-
-| Document | Last Updated | Version | Status |
-|----------|-------------|---------|--------|
-| [README](README.md) | July 2025 | 1.0 | ✅ Complete |
-| [Architecture Guide](ARCHITECTURE.md) | July 2025 | 1.0 | ✅ Complete |
-| [API Documentation](API.md) | July 2025 | 1.0 | ✅ Complete |
-| [Database Guide](DATABASE.md) | July 2025 | 1.0 | ✅ Complete |
-| [UI Guide](UI.md) | July 2025 | 1.0 | ✅ Complete |
-| [Models Documentation](MODELS.md) | July 2025 | 1.0 | ✅ Complete |
-| [Deployment Guide](DEPLOYMENT.md) | July 2025 | 1.0 | ✅ Complete |
-
----
-
-## Feedback and Contributions
-
-We welcome feedback and contributions to improve this documentation:
-
-- **GitHub Issues**: Report problems or suggest improvements
-- **Pull Requests**: Submit documentation updates and corrections
-- **Discussions**: Ask questions and share ideas
-- **Reviews**: Help review and improve existing content
-
----
-
-**© 2025 Pusti-Tusti Project**  
-This documentation is maintained alongside the source code and follows the same licensing terms.
+**Last Updated**: September 2026
+**Project State**: Active maintenance and cleanup

@@ -1,242 +1,136 @@
 # System Architecture Guide
 
 ## Overview
-Pusti-Tusti follows a layered architecture pattern with clear separation of concerns, dependency injection, and modern design patterns to ensure maintainability, testability, and scalability.
+Pusti-Tusti is structured as a layered Java desktop application with a JavaFX UI, a service layer for nutrition logic and plan generation, and a data-access layer backed by SQLite.
+
+## Current State
+
+The project is in a stable cleanup phase. The app currently compiles and the automated test suite passes. Several cleanup steps have already reduced brittle startup and persistence issues, but the meal-planning engine still has architectural complexity and remains the main refactor target.
 
 ## Architecture Layers
 
-### 1. Presentation Layer (UI)
+### 1. Presentation Layer
 **Location**: `com.mealplanner.ui`
 
-The presentation layer handles user interactions and displays data using JavaFX components.
+This layer handles UI flow and user interaction through JavaFX controls and FXML screens.
 
-#### Components:
-- **MainViewController**: Primary application controller managing the main interface
-- **ProfileEditorController**: Modal dialog for user profile management
-- **RecipeCardController**: Individual recipe display components
-- **FamilyMemberTabController**: Family member profile management
-- **ShoppingListController**: Shopping list generation and display
+Key controllers include:
+- `MainViewController`
+- `ProfileEditorController`
+- `ProfileListController`
+- `FamilyMemberTabController`
+- `ShoppingListController`
 
-#### Key Features:
-- **MVC Pattern**: Clean separation between view logic and business logic
-- **Dependency Injection**: Services injected into controllers for loose coupling
-- **FXML-based UI**: Declarative UI design with FXML files
-- **CSS Styling**: Professional appearance with custom stylesheets
+Responsibilities:
+- show family profiles and plans
+- trigger generation flows
+- open profile management forms
+- present shopping list output
 
-#### UI Architecture:
-```
-MainView.fxml (BorderPane)
-├── Top: Menu/Navigation
-├── Center: TabPane (Nested Structure)
-│   ├── Day Tabs (Monday-Sunday)
-│   └── Meal Tabs (Breakfast, Lunch, Dinner, Snacks)
-└── Right: Profile Information Panel
-```
-
-### 2. Service Layer (Business Logic)
+### 2. Service Layer
 **Location**: `com.mealplanner.service`
 
-The service layer contains all business logic and orchestrates operations between the UI and data access layers.
+The service layer contains the application logic that coordinates profile data, nutrition targets, and recipe selection.
 
-#### MealPlannerService
-**Purpose**: Core meal planning logic and recipe selection
+#### `MealPlannerService`
+This is the main orchestration component for plan generation. It creates weekly plans, calculates portions, selects recipes, and assembles family-level meal suggestions.
 
-**Key Methods**:
-- `generateNewWeeklyPlan()`: Creates 7-day personalized meal plans
-- `generateWeeklyMealsForType()`: Generates meals for specific meal types
-- `generateFamilyMealPlan()`: Creates meal plans for entire families
+Current characteristics:
+- functional and tested
+- large and multi-responsibility in nature
+- still a consolidation point for scoring, filtering, and recommendation logic
 
-**Algorithm Features**:
-- **Optimized Database Access**: 4 database calls instead of 28 (7 days × 4 meals)
-- **Recipe Variety Logic**: Prevents recipe repetition using cooldown mechanisms
-- **Portion Control**: Automatic portion size calculation based on nutritional needs
-- **Nutritional Balance**: Ensures meals meet daily nutritional requirements
+#### `NutritionCalculatorService`
+Responsible for converting profile data into daily nutrition targets and related metrics.
 
-#### NutritionCalculatorService
-**Purpose**: Nutritional calculations and personalized requirements
+#### `ProfileService`
+Handles profile persistence and cache management for family members.
 
-**Key Methods**:
-- `calculateNutritionProfile()`: Computes personalized nutrition requirements
-- `calculateBMI()`: Body Mass Index calculations
-- `calculateBMR()`: Basal Metabolic Rate using age-appropriate formulas
-- `calculateTDEE()`: Total Daily Energy Expenditure based on activity level
-
-**Calculation Standards**:
-- **BMR Formulas**: Schofield (≤18 years), Mifflin-St Jeor (>18 years)
-- **Activity Multipliers**: 5-level activity scale (1.2 - 1.9)
-- **Medical Adjustments**: Condition-specific nutritional modifications
-- **Macronutrient Distribution**: Balanced protein, carbohydrate, and fat ratios
-
-#### ProfileService
-**Purpose**: User profile management and persistence
-
-**Key Methods**:
-- `saveProfile()`: Persists user profiles to SQLite
-- `loadProfile()`: Retrieves user profiles from SQLite storage
-- `createDemoProfile()`: Generates demo profile for testing
-
-### 3. Data Access Layer (DAL)
+### 3. Data Access Layer
 **Location**: `com.mealplanner.dal`
 
-The data access layer provides abstraction for database operations and data persistence.
+This layer encapsulates the SQLite interactions.
 
-#### DatabaseManager
-**Pattern**: Singleton
-**Purpose**: Centralized database connection management
+Implemented components:
+- `DatabaseManager`: connection lifecycle and schema bootstrap
+- `DAOFactory`: creation of DAO instances
+- `RecipeDAO` / `RecipeDAOImpl`: recipe retrieval and filtering
+- `ProfileDAO` / `SQLiteProfileDAO`: profile persistence
 
-**Features**:
-- **Connection Pooling**: Efficient database connection management
-- **View Creation**: Automatic creation of unified recipe views
-- **Error Handling**: Robust database error management
-- **Resource Cleanup**: Automatic connection cleanup
-
-#### RecipeDAO / RecipeDAOImpl
-**Pattern**: Repository Pattern
-**Purpose**: Recipe data access with complex filtering capabilities
-
-**Key Methods**:
-- `findRecipeById()`: Retrieve specific recipes
-- `findRecipesByFilter()`: Complex multi-criteria filtering
-- `findRecipesByMealType()`: Meal type-specific queries
-- `findRecipesByDietaryRequirements()`: Dietary restriction filtering
-- `findRecipesByNutrition()`: Nutritional value-based filtering
-
-**Advanced Features**:
-- **JSON Deserialization**: Automatic parsing of ingredient and nutrition data
-- **Allergen Filtering**: Ingredient-level allergen detection
-- **Tag-based Searching**: Flexible recipe categorization
-- **Parameterized Queries**: SQL injection prevention
-
-#### DAOFactory
-**Pattern**: Factory Pattern
-**Purpose**: DAO instance creation and management
+Recent improvements include:
+- safer default DB path resolution
+- directory initialization before database creation
+- explicit exception flow during startup and schema setup
+- logging instead of ad hoc print statements
 
 ### 4. Domain Model Layer
 **Location**: `com.mealplanner.model`
 
-The model layer defines the core domain objects and data structures.
+This layer models the domain objects used by the planner and UI.
 
-#### User Models (`com.mealplanner.model.user`)
-- **UserProfile**: Complete user information with health goals and preferences
-- **NutritionProfile**: Calculated nutritional requirements and goals
-- **FamilyMember**: Extended user profile for family relationships
+Core categories:
+- user profile models
+- recipe models
+- meal plan models
+- enums for goals, conditions, genders, and meal types
 
-#### Recipe Models (`com.mealplanner.model.recipe`)
-- **Recipe**: Complete recipe information with multilingual support
-- **Ingredient**: Recipe components with quantities and nutritional data
-- **NutritionInfo**: Comprehensive nutrition information (27+ nutrients)
+## Design Characteristics
 
-#### Meal Plan Models
-- **WeeklyMealPlan**: 7-day meal plan structure
-- **DailyMealPlan**: Single day meal organization
-- **Meal**: Individual meal with recipes and nutritional data
-- **FamilyMealPlan**: Multi-member meal planning
+### Dependency injection
+The app uses service injection into controllers and relies on constructor-based wiring for the main runtime setup.
 
-#### Enums
-- **Gender**: MALE, FEMALE
-- **HealthGoal**: WEIGHT_LOSS, WEIGHT_GAIN, MUSCLE_GAIN, MAINTENANCE
-- **MealType**: BREAKFAST, LUNCH, DINNER, SNACKS
-- **MedicalCondition**: DIABETES, HYPERTENSION, HEART_DISEASE, etc.
-- **DietaryPreference**: VEGAN, VEGETARIAN, NON_VEGETARIAN
+### Repository / DAO pattern
+The repository layer abstracts database access and keeps SQL-specific logic away from UI and business responsibilities.
 
-## Design Patterns
+### MVC-inspired UI structure
+The UI follows a JavaFX-based controller pattern, where FXML defines the screen and controllers respond to events.
 
-### 1. Dependency Injection
-**Implementation**: Constructor-based injection in services and controllers
-**Benefits**: Loose coupling, testability, maintainability
+## Runtime Flow
 
-```java
-public class MainViewController {
-    private MealPlannerService mealPlannerService;
-    private ProfileService profileService;
-    private NutritionCalculatorService nutritionCalculatorService;
-    
-    public void setServices(MealPlannerService mealPlannerService, 
-                           ProfileService profileService,
-                           NutritionCalculatorService nutritionCalculatorService) {
-        // Dependency injection
-    }
-}
-```
+1. Application starts through `App`.
+2. Database is initialized.
+3. Services are created.
+4. Main JavaFX scene is loaded.
+5. Family profiles are loaded and UI tabs are created.
+6. Meal generation is triggered from the controller layer.
+7. The planner uses recipe + profile data to build plans and shopping lists.
 
-### 2. Singleton Pattern
-**Implementation**: DatabaseManager for connection management
-**Benefits**: Single point of database access, resource management
+## Observed Strengths
 
-### 3. Factory Pattern
-**Implementation**: DAOFactory for DAO creation
-**Benefits**: Centralized object creation, easy testing and mocking
+- Clear project boundaries between UI, services, DAL, and model
+- Portable SQLite local storage model
+- Good fit for a personal or academic desktop app
+- Sufficient test coverage for core repository behavior
 
-### 4. Repository Pattern
-**Implementation**: RecipeDAO for data access abstraction
-**Benefits**: Data access abstraction, testability, flexibility
+## Observed Limitations
 
-### 5. MVC Pattern
-**Implementation**: JavaFX controllers with FXML views
-**Benefits**: Separation of concerns, maintainable UI code
+- `MealPlannerService` still acts as a large orchestration class and is the main source of architectural complexity
+- Some business logic is still embedded in the same class as selection scoring and fallback behaviors
+- Debug logging was previously heavy; cleanup reduced it, but a formal logger strategy could still be improved across all classes
 
-## Data Flow Architecture
+## Recommendations
 
-### Meal Plan Generation Flow
-1. **UI Request**: User requests meal plan generation
-2. **Service Orchestration**: MealPlannerService coordinates the process
-3. **Nutrition Calculation**: NutritionCalculatorService computes requirements
-4. **Data Access**: RecipeDAO queries database with filtering criteria
-5. **Algorithm Processing**: Recipe selection and portion calculation
-6. **Plan Assembly**: Weekly meal plan construction
-7. **UI Update**: Display updated meal plan in interface
+### Short-term
+- Keep the current cleanup direction
+- Centralize logging in a standard logger strategy
+- Continue reducing duplicate logic in planner-related classes
 
-### Profile Management Flow
-1. **UI Input**: User creates/edits profile information
-2. **Validation**: Input validation and sanitization
-3. **Service Processing**: ProfileService manages profile data
-4. **Nutrition Calculation**: Automatic nutrition profile generation
-5. **Persistence**: SQLite-backed profile storage in `user_profiles`
-6. **UI Refresh**: Updated profile display
+### Medium-term
+- Split `MealPlannerService` into dedicated helpers for:
+  - recipe filtering
+  - score calculation
+  - fallback selection
+  - family plan aggregation
 
-## Performance Optimizations
+### Long-term
+- Consider a dedicated recommendation engine or strategy interface
+- Move more selection rules into domain-specific components
 
-### Database Access Optimization
-- **Batch Queries**: 4 database calls for weekly meal generation instead of 28
-- **Connection Pooling**: Efficient database connection reuse
-- **Prepared Statements**: SQL injection prevention and performance
-- **View Optimization**: Unified recipe view for efficient querying
+## Status
 
-### Memory Management
-- **Object Pooling**: Recipe caching for frequently accessed data
-- **Lazy Loading**: On-demand data loading for large datasets
-- **Garbage Collection**: Efficient object lifecycle management
+**Current state**: stable working app with verified tests and a visible refactor opportunity in the planner service.
 
-### Algorithm Efficiency
-- **Recipe Cooldown**: Prevents repetitive database queries for variety
-- **Portion Calculation**: Mathematical optimization for portion sizing
-- **Nutritional Scoring**: Efficient recipe ranking algorithms
-
-## Security Considerations
-
-### Data Protection
-- **SQL Injection Prevention**: Parameterized queries throughout
-- **Input Validation**: Comprehensive input sanitization
-- **File System Security**: Secure profile file storage
-
-### Database Security
-- **Connection Security**: Secure database connection management
-- **Access Control**: Proper database access patterns
-- **Data Integrity**: Transaction management and rollback
-
-## Scalability Design
-
-### Horizontal Scaling
-- **Service Layer**: Stateless services enable easy scaling
-- **Database Layer**: SQLite suitable for single-user applications
-- **UI Layer**: JavaFX desktop application architecture
-
-### Vertical Scaling
-- **Memory Efficiency**: Optimized object creation and management
-- **Processing Efficiency**: Algorithmic optimizations
-- **Storage Efficiency**: Compact data structures and JSON storage
-
-## Testing Architecture
+**Documentation note**: this architecture guide reflects the real current state, not an idealized target architecture.
 
 ### Unit Testing
 - **Service Layer Testing**: Comprehensive business logic testing

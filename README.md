@@ -1,203 +1,158 @@
 # Pusti-Tusti - Personalized Meal Planning Application
 
 ## Overview
-Pusti-Tusti is a comprehensive meal planning application designed to provide personalized nutrition recommendations based on individual health goals, medical conditions, and dietary preferences. The application features a modern JavaFX interface and uses SQLite for data persistence.
+Pusti-Tusti is a JavaFX-based meal planning desktop application for generating personalized weekly nutrition plans for individuals and families. It combines user profile data, dietary constraints, medical conditions, and calorie targets to recommend recipes, generate meal plans, and produce consolidated shopping lists.
+
+## Current Project Status
+
+As of September 2026, the project is in a stable maintenance and cleanup phase.
+
+- The codebase compiles successfully with Java 17 and Maven.
+- The existing automated test suite passes: `mvn -q test` returned `EXIT:0`.
+- Major code-smell cleanup has been applied around startup, database initialization, and profile identity handling.
+- One notable architectural debt remains: the planner logic in `MealPlannerService` is still large and could be split into smaller specialist services in a future refactor.
 
 ## Key Features
 
-### 🧑‍🤝‍🧑 User Management
-- **Comprehensive User Profiles**: Personal information, health goals, medical conditions, and dietary preferences
-- **Family Member Management**: Support for multiple family members with individual profiles
-- **Activity Level Tracking**: 5-level activity scale for accurate calorie calculations
-- **Allergy and Dietary Restriction Management**: Comprehensive allergen filtering
+### User and Family Management
+- Create and manage multiple family member profiles
+- Store age, weight, height, gender, allergens, medical conditions, and goals
+- Support per-member meal preferences and nutrition targets
+- Maintain unique profile identity across UI and persistence layers
 
-### 🍽️ Meal Planning
-- **7-Day Weekly Meal Plans**: Personalized weekly meal planning with nutritional balance
-- **4-Meal Structure**: Breakfast, Lunch, Dinner, and Snacks for complete daily nutrition
-- **Recipe Variety**: Intelligent algorithm ensures meal variety and prevents repetition
-- **Portion Control**: Automatic portion size calculation based on nutritional requirements
+### Meal Planning
+- Generate personalized 7-day meal plans
+- Split daily intake into breakfast, lunch, dinner, and snacks
+- Consider nutrition goals, allergies, and medical context
+- Try to avoid repetitive recipes and maintain variety over the week
 
-### 📊 Nutrition Tracking
-- **BMI, BMR, and TDEE Calculations**: Industry-standard formulas for accurate metabolic calculations
-- **Personalized Nutrition Goals**: Customized calorie and macronutrient targets
-- **Medical Condition Awareness**: Nutrition adjustments for diabetes, hypertension, and other conditions
-- **27+ Micronutrient Tracking**: Comprehensive vitamin and mineral monitoring
+### Nutrition Logic
+- Calculate calorie and macronutrient targets from profile data
+- Evaluate medical-condition-aware dietary preferences
+- Support low-calorie, high-protein, diabetic-friendly, and healthy-fresh recommendations
+- Assemble daily nutrition totals from selected meals
 
-### 🥘 Recipe Management
-- **Multilingual Support**: English and Bengali recipe content
-- **Comprehensive Recipe Database**: Detailed ingredient lists with nutritional information
-- **Advanced Filtering**: Filter by meal type, dietary requirements, allergens, and nutrition values
-- **JSON-Based Data Structure**: Flexible ingredient and nutrition data storage
+### Recipe and Data Layer
+- SQLite-backed recipe data store
+- Recipe filtering by meal type, dietary patterns, tags, and allergens
+- JSON-based ingredient and nutrition parsing
+- Unified recipe view for cross-table queries
 
-### 🎨 User Interface
-- **Modern JavaFX Design**: Professional and intuitive user interface
-- **Nested Tab Navigation**: Organized meal plan browsing by day and meal type
-- **Modal Profile Editor**: Easy profile creation and editing
-- **Recipe Cards**: Detailed recipe display with nutrition information
+### UI
+- JavaFX desktop interface with FXML and CSS styling
+- Family tab navigation and profile management dialogs
+- Shopping list generation based on selected plans
+- Family-level meal plan presentation with member-specific personalization
 
 ## Technology Stack
 
-- **Java**: 17+ (Latest LTS version)
-- **Build Tool**: Maven 3.6+
-- **GUI Framework**: JavaFX (Controls and FXML)
-- **Database**: SQLite with JDBC driver
-- **JSON Processing**: Jackson Core and Databind
-- **Testing**: JUnit 5
-- **Module System**: Java 9+ modules for clean dependency management
+- Java 17
+- Maven
+- JavaFX 17.0.2
+- SQLite JDBC
+- Jackson JSON library
+- JUnit 5
 
 ## Project Structure
 
-```
+```text
 src/
 ├── main/
 │   ├── java/
 │   │   ├── module-info.java
 │   │   └── com/
 │   │       └── mealplanner/
-│   │           ├── App.java                    # Main application entry point
-│   │           ├── dal/                        # Data Access Layer
-│   │           │   ├── DatabaseManager.java   # Singleton database connection
-│   │           │   ├── RecipeDAO.java          # Recipe data access interface
-│   │           │   ├── RecipeDAOImpl.java      # Recipe DAO implementation
-│   │           │   └── DAOFactory.java         # DAO factory pattern
-│   │           ├── model/                      # Data Models
-│   │           │   ├── *.java                  # Enums (Gender, HealthGoal, etc.)
-│   │           │   ├── recipe/                 # Recipe models
-│   │           │   ├── user/                   # User and nutrition models
-│   │           │   └── *.java                  # Meal plan models
-│   │           ├── service/                    # Business Logic Layer
-│   │           │   ├── MealPlannerService.java # Meal planning logic
-│   │           │   ├── NutritionCalculatorService.java # Nutrition calculations
-│   │           │   └── ProfileService.java     # Profile management
-│   │           └── ui/                         # User Interface
-│   │               ├── *.java                  # JavaFX controllers
-│   │               ├── *.fxml                  # JavaFX layouts
-│   │               └── *.css                   # Stylesheets
+│   │           ├── App.java
+│   │           ├── dal/
+│   │           │   ├── DAOFactory.java
+│   │           │   ├── DatabaseManager.java
+│   │           │   ├── ProfileDAO.java
+│   │           │   ├── RecipeDAO.java
+│   │           │   ├── RecipeDAOImpl.java
+│   │           │   └── SQLiteProfileDAO.java
+│   │           ├── model/
+│   │           │   ├── DailyMealPlan.java
+│   │           │   ├── FamilyMealPlan.java
+│   │           │   ├── Meal.java
+│   │           │   ├── MealType.java
+│   │           │   ├── WeeklyMealPlan.java
+│   │           │   ├── recipe/
+│   │           │   └── user/
+│   │           ├── service/
+│   │           │   ├── MealPlannerService.java
+│   │           │   ├── NutritionCalculatorService.java
+│   │           │   └── ProfileService.java
+│   │           └── ui/
+│   │               ├── ... JavaFX controllers ...
+│   │               ├── ... FXML files ...
+│   │               └── ... CSS resources ...
 │   └── resources/
-│       ├── recipes.db                          # SQLite database
-│       └── com/mealplanner/ui/                 # UI resources
-└── test/
-    └── java/
-        └── com/mealplanner/                    # Unit tests
+│       └── com/mealplanner/ui/
+├── test/
+│   └── java/
+│       └── com/mealplanner/
+└── docs/
+    └── ... documentation files ...
 ```
 
-## Building and Running
+## Build and Run
 
 ### Prerequisites
-- Java 17 or higher
-- Maven 3.6 or higher
+- Java 17+
+- Maven 3.6+
 
-### Build Commands
+### Commands
 ```bash
-# Clean previous builds
 mvn clean
-
-# Compile the application
 mvn compile
-
-# Run tests
 mvn test
-
-# Run the application
 mvn javafx:run
 ```
 
-### VS Code Integration
-Use the predefined task "Run Pusti-Tusti Application" or press `Ctrl+Shift+P` and run the task.
+## Verified Status
 
-## Application Flow
+The project has been checked with the following command:
 
-1. **Application Launch**: 
-   - Initialize services and database connections
-   - Load or create user profile
-   - Display main interface
+```bash
+cd /media/nym/endeavouros/home/nym/Pictures/Java-Pusti-Tusti && mvn -q test; echo EXIT:$?
+```
 
-2. **Profile Management**:
-   - Create/edit user profiles with health goals
-   - Set dietary preferences and medical conditions
-   - Configure family member profiles
+This currently returns:
 
-3. **Meal Plan Generation**:
-   - Generate 7-day personalized meal plans
-   - Calculate nutritional requirements based on user profile
-   - Ensure recipe variety and prevent repetition
+```text
+EXIT:0
+```
 
-4. **Plan Navigation**:
-   - Browse meal plans using nested day/meal tabs
-   - View detailed recipe information
-   - Review nutritional content
+## Current Health Summary
 
-## Database Schema
+### Strengths
+- Small but coherent desktop app architecture
+- Functional SQLite persistence layer
+- Core nutrition and planning logic working in tests
+- Service/UI boundary mostly in place
+- Improved error handling and safer database initialization
 
-The application uses SQLite with the following key tables:
-- **breakfast**, **lunch**, **dinner**, **snacks**: Recipe data by meal type
-- **Unified Recipe View**: Combined view of all meal types for efficient querying
-- **JSON Columns**: Ingredients, tags, and instructions stored as JSON for flexibility
+### Remaining Considerations
+- The meal-planning engine is still large and could be decomposed further
+- A few cross-cutting concerns remain in the planner service
+- The app is best described as a working local desktop project rather than a full production platform
 
-## Architecture Highlights
+## Documentation
 
-### Service Layer Architecture
-- **Dependency Injection**: Clean separation of concerns with service injection
-- **Factory Pattern**: DAO factory for database access
-- **Strategy Pattern**: Multiple nutrition calculation strategies
-
-### Data Access Layer
-- **Singleton Pattern**: Single database connection manager
-- **Repository Pattern**: Recipe DAO with comprehensive filtering
-- **JSON Deserialization**: Automatic parsing of complex data structures
-
-### User Interface Design
-- **MVC Pattern**: Model-View-Controller architecture
-- **Component-Based**: Reusable UI components and controllers
-- **CSS Styling**: Professional appearance with custom stylesheets
-
-## Demo Profile
-
-The application includes a demo profile for immediate testing:
-- **Name**: Demo User
-- **Demographics**: 30 years old, Male, 175cm, 70kg
-- **Goal**: Weight Loss with moderate activity level
-- **Preferences**: Realistic dietary preferences and allergy information
-
-## Future Enhancement Opportunities
-
-- **Advanced Meal Planning**: Machine learning-based recipe recommendations
-- **Shopping List Generation**: Automatic shopping list creation from meal plans
-- **Nutrition Analytics**: Detailed nutrition analysis and reporting
-- **Cloud Synchronization**: Multi-device profile synchronization
-- **Mobile App**: Companion mobile application
-- **Social Features**: Meal plan sharing and community features
-
-## Development Standards
-
-### Code Quality
-- **Clean Code**: Consistent naming conventions and documentation
-- **SOLID Principles**: Single responsibility and dependency inversion
-- **Comprehensive Testing**: Unit tests for critical business logic
-- **Error Handling**: Robust error management throughout the application
-
-### Performance Optimizations
-- **Database Efficiency**: Optimized query patterns (4 calls vs 28 for meal generation)
-- **Memory Management**: Efficient object creation and garbage collection
-- **Caching Strategy**: Recipe caching for improved performance
-
-## Documentation Structure
-
-This documentation is organized into the following sections:
-
-- **[Architecture Guide](ARCHITECTURE.md)**: Detailed system architecture and design patterns
-- **[API Documentation](API.md)**: Service layer APIs and method documentation
-- **[Database Guide](DATABASE.md)**: Database schema and data access patterns
-- **[UI Guide](UI.md)**: User interface components and JavaFX implementation
-- **[Model Documentation](MODELS.md)**: Data models and domain objects
-- **[Deployment Guide](DEPLOYMENT.md)**: Build, test, and deployment procedures
+- [docs/INDEX.md](docs/INDEX.md)
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
+- [docs/API.md](docs/API.md)
+- [docs/DATABASE.md](docs/DATABASE.md)
+- [docs/UI.md](docs/UI.md)
+- [docs/MODELS.md](docs/MODELS.md)
+- [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)
 
 ## License
 
-This project is developed as part of a meal planning application development initiative.
+This project is maintained as a Java/JavaFX meal-planning application for local use and academic or personal development purposes.
 
 ---
 
-**Version**: 1.0
-**Last Updated**: July 2025
-**Status**: Production Ready ✅
+**Version**: 1.1
+**Last Updated**: September 2026
+**Status**: Active project maintenance ✅
