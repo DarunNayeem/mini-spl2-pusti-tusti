@@ -23,11 +23,12 @@ import java.util.logging.Logger;
 /**
  * Main View Controller for Family Meal Planning Application
  * Manages the tab-based interface where each tab represents a family member
+ * 
  */
 public class MainViewController {
     private static final Logger LOGGER = Logger.getLogger(MainViewController.class.getName());
 
-    // Header Controls
+    // Header controls
     @FXML
     private Button generateShoppingListButton;
     @FXML
@@ -167,7 +168,7 @@ public class MainViewController {
     }
 
     /**
-     * Handle Generate Shopping List button click
+     * Handle generate shopping List button click
      */
     @FXML
     private void handleGenerateShoppingList() {
