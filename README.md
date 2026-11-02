@@ -155,4 +155,4 @@ This project is maintained as a Java/JavaFX meal-planning application for local 
 
 **Version**: 1.1
 **Last Updated**: September 2026
-**Status**: Active project maintenance ✅
+**Status**: Active project maintenance 
